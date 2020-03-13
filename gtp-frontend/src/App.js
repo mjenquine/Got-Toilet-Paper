@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
+import NewForm from './components/NewForm.js';
 
-let baseURL = ''
+let baseURL = process.env.REACT_APP_BASEURL
 
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3003'
@@ -17,6 +18,12 @@ class App extends Component {
     this.state = {
       gtps: []
     }
+   this.getGtps = this.getGtps.bind(this)
+   this.handleAddGtp = this.handleAddGtp.bind(this)
+   this.deleteGtp = this.deleteGtp.bind(this)
+   this.toggleHasTP = this.toggleHasTP.bind(this)
+   this.getGtp = this.getGtp.bind(this)
+
   }
   componentDidMount(){
     this.getGtps()
@@ -37,28 +44,6 @@ class App extends Component {
     this.setState({
       gtps: copyGtps
     })
-  }
-  render () {
-    return (
-      <div className="container">
-        <div className="jumbotron">
-          <h1>Hello</h1>
-        </div>
-        {this.state.gtps.map(gtp => {
-          return (
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{gtp.store}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
-            <p class="card-text">{gtp.brands}</p>
-            <a href="#" class="card-link">Edit</a>
-            <a href="#" class="card-link">Delete</a>
-          </div>
-        </div>
-          )
-        })}
-      </div>
-    )
   }
 
   handleAddGtp(gtp) {
@@ -84,7 +69,7 @@ class App extends Component {
    }
  }
 
-async toggleCelebrated (gtp){
+async toggleHasTP (gtp){
   console.log(gtp)
   try{
   let response = await fetch(baseURL + '/gtps/' + gtp._id, {
@@ -111,35 +96,29 @@ getGtp(gtp) {
   console.log(gtp)
 }
 
- render () {
-   return (
-     <div className='container'>
-      <h1>Got Toilet Paper?</h1>
-        <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
-        <table>
-    <tbody>
-      { this.state.gtps.map(gtp => {
-          return (
-            <tr key={gtp._id} onMouseOver={() => this.getGtp(gtp)}>
-              <td  onDoubleClick={() => this.toggleCelebrated(gtp)}
-                className={gtp.celebrated
-                  ? 'celebrated'
-                  : null }>
-                  {gtp.name } and its {gtp.celebrated ? 'In Stock': 'Out of Stock' }
-                </td>
-              <td onClick={()=>{ this.deleteGtp(gtp._id)}}>X</td>
-            </tr>
-          )
-        })
-      }
-    </tbody>
-  </table>
-  </div>
-  // {/* This is conditional rendering */}
-  // { this.state.gtp
-  //       ? <Show gtp={this.state.gtp}/>
-  //       : null }
-   )
- }
+render () {
+  return (
+    <div className="container">
+      <div className="jumbotron">
+        <h1>Hello</h1>
+      </div>
+      <NewForm />
+      {this.state.gtps.map(gtp => {
+        return (
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{gtp.store}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
+          <p class="card-text">{gtp.brands}</p>
+          <a href="#" class="card-link">Edit</a>
+          <a href="#" class="card-link">Delete</a>
+        </div>
+      </div>
+        )
+      })}
+    </div>
+  )
 }
+}
+
 export default App
