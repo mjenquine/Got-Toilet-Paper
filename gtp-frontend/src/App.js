@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
-
+import NewForm from './components/NewForm.js'
 let baseURL = ''
 
 if (process.env.NODE_ENV === 'development') {
@@ -44,6 +44,7 @@ class App extends Component {
         <div className="jumbotron">
           <h1>Hello</h1>
         </div>
+        <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
         {this.state.gtps.map(gtp => {
           return (
         <div class="card" style="width: 18rem;">
