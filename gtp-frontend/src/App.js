@@ -1,38 +1,26 @@
-import React from 'react'
-// import './css/normalize.css'
-// import './css/skeleton.css'
-// import './css/index.css'
-import NewForm from './components/NewForm.js'
-// import ballons from './images/two-balloon-icons-68911.png'
-// import pencil from './images/simpleiconDOTcom-pen-15-64x64.png'
-// import Show from './components/Show.js'
-// import UpdateForm from './components/UpdateForm.js'
-let baseURL = process.env.REACT_APP_BASEURL
-//alternate baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
+import React, {Component} from 'react';
+import 'bootstrap/dist/css/bootstrap.css'
+import './index.css';
+
+let baseURL = ''
+
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3003'
 } else {
-  baseURL = 'https://fathomless-sierra-68956.herokuapp.com'
+  baseURL = 'your heroku bakend url here'
 }
 console.log('current base URL:', baseURL)
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       gtps: []
-      // gtp: null
     }
-    this.getGtps = this.getGtps.bind(this)
-    this.handleAddGtp = this.handleAddGtp.bind(this)
-    this.deleteGtp = this.deleteGtp.bind(this)
-    this.toggleCelebrated = this.toggleCelebrated.bind(this)
-    this.getGtp = this.getGtp.bind(this)
   }
   componentDidMount(){
     this.getGtps()
-  }
-
+}
   async getGtps (){
     try {
       // the async request code you want to try
@@ -43,6 +31,34 @@ class App extends React.Component {
       // what happens when you get an error
       console.error(e)
     }
+  }
+  handleAddGtp(gtp) {
+    const copyGtps = [gtp, ...this.state.gtps]
+    this.setState({
+      gtps: copyGtps
+    })
+  }
+  render () {
+    return (
+      <div className="container">
+        <div className="jumbotron">
+          <h1>Hello</h1>
+        </div>
+        {this.state.gtps.map(gtp => {
+          return (
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{gtp.store}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
+            <p class="card-text">{gtp.brands}</p>
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+          </div>
+        </div>
+          )
+        })}
+      </div>
+    )
   }
 
   handleAddGtp(gtp) {
