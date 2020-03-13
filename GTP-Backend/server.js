@@ -20,7 +20,7 @@ const corsOptions = {
 }
 // app.use(cors(corsOptions))
 
-mongoose.connection.on('error', error => { console.log(error.message + 'Remember to run mongo or something')})
+mongoose.connection.on('error', error => { console.log(error.message + 'Mongo running properly?')})
 mongoose.connection.on('disconnected', ()=> console.log('Mongoose Disconnected'))
 mongoose.connect('mongodb://localhost:27017/gtps', {useUnifiedTopology: true, useNewUrlParser: true})
 mongoose.connection.once('open', () => {console.log('Mongoose Connected')})
