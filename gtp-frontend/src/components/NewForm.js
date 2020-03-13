@@ -3,7 +3,10 @@ class NewForm extends React.Component {
   constructor (props) {
   super(props)
   this.state = {
-    name: ''
+    store: '',
+    hasTP: Boolean,
+    brands: '',
+    lastUpdated: ''
   }
 this.handleChange = this.handleChange.bind(this)
 this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,17 +21,20 @@ async handleSubmit (event) {
     try{
       let response = await
       //this.props.baseURL = http://localhost:3003
-      fetch(this.props.baseURL + '/holidays', {
+      fetch(this.props.baseURL + '/gtps', {
           method: 'POST', // Put, Delete
-          body: JSON.stringify({name: this.state.name}),
+          body: JSON.stringify({store: this.state.store}),
           headers: {
               'Content-Type': 'application/json'
             }
           })
           let data =  await response.json()
-          this.props.handleAddHoliday(data)
+          this.props.handleAddGtp(data)
           this.setState({
-            name: ''
+              store: '',
+              hasTP: Boolean,
+              brands: '',
+              lastUpdated: ''
           })
         }catch(e){
           console.error({'Error': e})
@@ -38,7 +44,7 @@ async handleSubmit (event) {
   render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name"></label>
+        <label htmlFor="store"></label>
         <input type="text" id="store" name="store" onChange={this.handleChange} value={this.state.store} placeholder="Location"/>
         <label htmlFor="hasTP"></label>
         <input type="checkbox" id="hasTP" name="hasTP" onChange={this.handleChange} value={this.state.hasTP}/>
