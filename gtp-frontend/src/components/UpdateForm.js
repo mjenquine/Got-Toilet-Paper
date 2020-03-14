@@ -28,7 +28,7 @@ class UpdateForm extends React.Component {
             >
             </textarea>
             <input type="submit" value="Update Store" className="button-primary" />
-            <button className="button-red">Don't Update </button>
+            <button className="button-red"> Don't Update </button>
           </div>
         </form>
       </div>
