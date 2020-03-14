@@ -24,6 +24,7 @@ class App extends Component {
     this.deleteGtp = this.deleteGtp.bind(this)
     this.toggleHasTP = this.toggleHasTP.bind(this)
     this.getGtp = this.getGtp.bind(this)
+    this.stopShow = this.stopShow.bind(this)
   }
 
   componentDidMount(){
@@ -90,6 +91,10 @@ class App extends Component {
    this.setState({gtp: gtp})
    console.log(gtp)
   }
+  stopShow(gtp) {
+   this.setState({gtp: null})
+   console.log(gtp)
+  }
 
   render () {
     return (
@@ -103,7 +108,7 @@ class App extends Component {
           return (
         <div key={gtp._id} className="card" >
           <div className="card-body">
-            <h5 onMouseOver={() => this.getGtp(gtp)} className="card-title">{gtp.store}</h5>
+            <h5 onMouseOver={() => this.getGtp(gtp)} onMouseOut={() => this.stopShow(gtp)} className="card-title">{gtp.store}</h5>
             <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
             <p className="card-text">{gtp.brands}</p>
             <a href="#" className="card-link">Edit</a>
