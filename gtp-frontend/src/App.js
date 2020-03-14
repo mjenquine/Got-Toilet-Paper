@@ -111,6 +111,10 @@ class App extends Component {
         <div
           key={gtp._id}
           onMouseOver={() => this.getGtp(gtp)} onMouseOut={() => this.stopShow(gtp)} className="column"
+          onDoubleClick={() => this.toggleHasTP(gtp)}
+                className={gtp.hasTP
+                  ? 'hasTP '
+                  : 'bg-danger' }
         >
           <div className="row">
             <div className="card col" >
@@ -118,7 +122,6 @@ class App extends Component {
                 <h5 className="card-title">{gtp.store}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
                 <p className="card-text">{gtp.brands}</p>
-                <a href="#" className="card-link">Edit</a>
                 <a onClick={()=>{ this.deleteGtp(gtp._id)}} href="#" className="card-link">Delete</a>
               </div>
             </div>
@@ -128,7 +131,7 @@ class App extends Component {
         </div>
       )
     })}
-        <div className="col">
+        <div className="col position-sticky">
           { this.state.gtp
             ? <Show gtp={this.state.gtp}/>
             : null
