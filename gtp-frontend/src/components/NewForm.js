@@ -1,4 +1,5 @@
 import React from 'react'
+
 class NewForm extends React.Component {
   constructor (props) {
   super(props)
@@ -6,7 +7,6 @@ class NewForm extends React.Component {
     store: '',
     hasTP: Boolean,
     brands: '',
-    lastUpdated: ''
   }
 this.handleChange = this.handleChange.bind(this)
 this.handleSubmit = this.handleSubmit.bind(this)
@@ -19,11 +19,9 @@ handleChange (event) {
 async handleSubmit (event) {
     event.preventDefault()
     try{
-      let response = await
-      //this.props.baseURL = http://localhost:3003
-      fetch(this.props.baseURL + '/gtps', {
-          method: 'POST', // Put, Delete
-          body: JSON.stringify({store: this.state.store}),
+      let response =   await fetch('http://localhost:3003/holidays', {
+          method: 'POST', // Put , Delete
+          body: JSON.stringify({name: this.state.name, description: this.state.name}),
           headers: {
               'Content-Type': 'application/json'
             }
@@ -34,7 +32,6 @@ async handleSubmit (event) {
               store: '',
               hasTP: Boolean,
               brands: '',
-              lastUpdated: ''
           })
         }catch(e){
           console.error({'Error': e})
