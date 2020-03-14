@@ -4,7 +4,7 @@ class NewForm extends React.Component {
   super(props)
   this.state = {
     store: '',
-    hasTP: true,
+    hasTP: Boolean,
     brands: '',
   }
 this.handleChange = this.handleChange.bind(this)
@@ -17,7 +17,7 @@ async handleSubmit (event) {
     event.preventDefault()
     try{
       let response = await
-      //this.props.baseURL = http://localhost:3003
+      this.props.baseURL = `http://localhost:3003`
       fetch(this.props.baseURL + '/gtps', {
           method: 'POST', // Put, Delete
           body: JSON.stringify({store: this.state.store}),
@@ -29,23 +29,32 @@ async handleSubmit (event) {
           this.props.handleAddGtp(data)
           this.setState({
               store: '',
-              hasTP: true,
+              hasTP: Boolean,
               brands: '',
           })
         }catch(e){
           console.error({'Error': e})
         }
-      }
-  render () {
+    }
+
+render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor="store"></label>
-        <input type="text" id="store" name="store" onChange={this.handleChange} value={this.state.store} placeholder="Location"/>
-        <label htmlFor="hasTP"></label>
-        <input type="checkbox" id="hasTP" name="hasTP" onChange={this.handleChange} value={this.state.hasTP}/>
-        <label htmlFor="brands"></label>
-        <input type="text" id="brands" name="brands" onChange={this.handleChange} value={this.state.brands} placeholder="ex:) Charmin, Kirkland, etc."/>
-        <input type="submit" value="Share your toilet paper!"/>
+        <div className="form-group">
+          <label htmlFor="store">Store Name </label>
+          <input className="form-control" type="text" id="store" name="store" onChange={this.handleChange} value={this.state.store} placeholder="Location"/>
+        </div>
+        <div className="form-group form-check">
+          <input className="form-check-input" type="checkbox" id="hasTP" name="hasTP" onChange={this.handleChange} value={this.state.hasTP}/>
+          <label className="form-check-label" htmlFor="hasTP">Is TP In Stock? </label>
+        </div>
+        <div className="form-group">
+          <label htmlFor="brands">Brands In Stock </label>
+          <input className="form-control" type="text" id="brands" name="brands" onChange={this.handleChange} value={this.state.brands} placeholder="ex:) Charmin, Kirkland, etc."/>
+        </div>
+        <div className="form-group">
+          <input className="btn btn-primary" type="submit" value="Share your toilet paper!"/>
+        </div>
       </form>
     )
   }

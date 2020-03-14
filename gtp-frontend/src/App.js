@@ -68,6 +68,7 @@ class App extends Component {
        'Content-Type': 'application/json'
      }
    })
+
    let updatedGtp = await response.json()
    const foundGtp = this.state.gtps.findIndex(foundItem => foundItem._id === gtp._id)
    const copyGtps = [...this.state.gtps]
@@ -88,9 +89,9 @@ class App extends Component {
     return (
       <div className="container">
         <div className="jumbotron">
-          <h1>Hello</h1>
+          <h1>Got Toilet Paper?</h1>
         </div>
-        <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
+        <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL} className="NewForm"/>
         <br />
         {this.state.gtps.map(gtp => {
           return (
@@ -105,10 +106,12 @@ class App extends Component {
         </div>
           )
         })}
+        <div>
         { this.state.gtp
           ? <Show gtp={this.state.gtp}/>
           : null
         }
+        </div>
       </div>
     )
   }
