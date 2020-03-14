@@ -18,7 +18,7 @@ const corsOptions = {
     }
   }
 }
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 mongoose.connection.on('error', error => { console.log(error.message + 'Mongo running properly?')})
 mongoose.connection.on('disconnected', ()=> console.log('Mongoose Disconnected'))
