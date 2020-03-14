@@ -14,5 +14,5 @@ code {
 
 .position-sticky {
   right: 0;
-  position: absolute;
+  top: 20%;
 }

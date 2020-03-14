@@ -106,6 +106,12 @@ class App extends Component {
           handleAddGtp={this.handleAddGtp} baseURL={baseURL}
         />
         <br />
+        <div className="col position-sticky">
+          { this.state.gtp
+            ? <Show gtp={this.state.gtp}/>
+            : null
+          }
+        </div>
         {this.state.gtps.map(gtp => {
           return (
         <div
@@ -131,12 +137,6 @@ class App extends Component {
         </div>
       )
     })}
-        <div className="col position-sticky">
-          { this.state.gtp
-            ? <Show gtp={this.state.gtp}/>
-            : null
-          }
-        </div>
       </div>
     )
   }
