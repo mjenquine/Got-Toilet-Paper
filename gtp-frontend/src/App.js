@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
 import NewForm from './components/NewForm.js'
+import Show from './components/Show.js'
 let baseURL = ''
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3003'
@@ -13,7 +14,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      gtps: []
+      gtps: [],
+      gtp: null
     }
     this.getGtps = this.getGtps.bind(this)
     this.handleAddGtp = this.handleAddGtp.bind(this)
@@ -57,29 +59,31 @@ class App extends Component {
   }
 }
   async toggleHasTP (gtp){
- console.log(gtp)
- try{
- let response = await fetch(baseURL + '/gtps/' + gtp._id, {
-   method: 'PUT',
-   body: JSON.stringify({hasTP: !gtp.hasTP}),
-   headers: {
-     'Content-Type': 'application/json'
+   console.log(gtp)
+   try{
+   let response = await fetch(baseURL + '/gtps/' + gtp._id, {
+     method: 'PUT',
+     body: JSON.stringify({hasTP: !gtp.hasTP}),
+     headers: {
+       'Content-Type': 'application/json'
+     }
+   })
+   let updatedGtp = await response.json()
+   const foundGtp = this.state.gtps.findIndex(foundItem => foundItem._id === gtp._id)
+   const copyGtps = [...this.state.gtps]
+   copyGtps[foundGtp].hasTP = updatedGtp.hasTP
+   console.log(updatedGtp)
+   this.setState({gtps: copyGtps})
+   }catch(e){
+     console.error(e)
    }
- })
- let updatedGtp = await response.json()
- const foundGtp = this.state.gtps.findIndex(foundItem => foundItem._id === gtp._id)
- const copyGtps = [...this.state.gtps]
- copyGtps[foundGtp].hasTP = updatedGtp.hasTP
- console.log(updatedGtp)
- this.setState({gtps: copyGtps})
- }catch(e){
-   console.error(e)
- }
-}
+  }
+
   getGtp(gtp) {
- this.setState({gtp: gtp})
- console.log(gtp)
-}
+   this.setState({gtp: gtp})
+   console.log(gtp)
+  }
+
   render () {
     return (
       <div className="container">
@@ -90,9 +94,9 @@ class App extends Component {
         <br />
         {this.state.gtps.map(gtp => {
           return (
-        <div key={gtp._id} className="card">
+        <div key={gtp._id} className="card" >
           <div className="card-body">
-            <h5 className="card-title">{gtp.store}</h5>
+            <h5 onMouseOver={() => this.getGtp(gtp)} className="card-title">{gtp.store}</h5>
             <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
             <p className="card-text">{gtp.brands}</p>
             <button
@@ -101,6 +105,10 @@ class App extends Component {
         </div>
           )
         })}
+        { this.state.gtp
+          ? <Show gtp={this.state.gtp}/>
+          : null
+        }
       </div>
     )
   }
