@@ -3,14 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './index.css';
 import NewForm from './components/NewForm.js'
 let baseURL = ''
-
 if (process.env.NODE_ENV === 'development') {
   baseURL = 'http://localhost:3003'
 } else {
   baseURL = 'your heroku bakend url here'
 }
 console.log('current base URL:', baseURL)
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -23,11 +21,9 @@ class App extends Component {
     this.toggleHasTP = this.toggleHasTP.bind(this)
     this.getGtp = this.getGtp.bind(this)
   }
-
   componentDidMount(){
     this.getGtps()
 }
-
   async getGtps (){
     try {
       // the async request code you want to try
@@ -39,14 +35,12 @@ class App extends Component {
       console.error(e)
     }
   }
-
   handleAddGtp(gtp) {
     const copyGtps = [gtp, ...this.state.gtps]
     this.setState({
       gtps: copyGtps
     })
   }
-
   async deleteGtp (id){
   console.log(`I made a delete request to here: ${baseURL}/gtps/${id}`)
   try {
@@ -62,7 +56,6 @@ class App extends Component {
     console.error(e)
   }
 }
-
   async toggleHasTP (gtp){
  console.log(gtp)
  try{
@@ -83,12 +76,10 @@ class App extends Component {
    console.error(e)
  }
 }
-
   getGtp(gtp) {
  this.setState({gtp: gtp})
  console.log(gtp)
 }
-
   render () {
     return (
       <div className="container">
@@ -104,8 +95,8 @@ class App extends Component {
             <h5 className="card-title">{gtp.store}</h5>
             <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
             <p className="card-text">{gtp.brands}</p>
-            <a href="#" className="card-link">Edit</a>
-            <a href="#" className="card-link">Delete</a>
+            <button
+            onClick={()=>{ this.deleteGtp(gtp._id)}} className="card-link">🗑️</button>
           </div>
         </div>
           )
@@ -113,7 +104,5 @@ class App extends Component {
       </div>
     )
   }
-
 }
-
 export default App
