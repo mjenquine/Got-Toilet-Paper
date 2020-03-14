@@ -89,11 +89,11 @@ class App extends Component {
 
   getGtp(gtp) {
    this.setState({gtp: gtp})
-   console.log(gtp)
+
   }
   stopShow(gtp) {
    this.setState({gtp: null})
-   console.log(gtp)
+
   }
 
   render () {
@@ -104,6 +104,8 @@ class App extends Component {
         </div>
         <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
         <br />
+
+        
         {this.state.gtps.map(gtp => {
           return (
         <div key={gtp._id} className="card" >
@@ -121,6 +123,8 @@ class App extends Component {
           ? <Show gtp={this.state.gtp}/>
           : null
         }
+
+
       </div>
     )
   }
