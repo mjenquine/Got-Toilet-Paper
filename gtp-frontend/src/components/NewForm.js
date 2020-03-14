@@ -49,10 +49,7 @@ async handleSubmit (event) {
         </div>
 
 
-        <div className="form-group form-check">
-          <input className="form-check-input" type="checkbox" id="hasTP" name="hasTP" onChange={this.handleChange} value={this.state.hasTP}/>
-          <label className="form-check-label" htmlFor="hasTP">Is TP In Stock? </label>
-        </div>
+
 
 
         <div className="form-group">
