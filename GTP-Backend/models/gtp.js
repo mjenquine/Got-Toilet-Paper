@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const gtpSchema = mongoose.Schema({
     store: {type: String, required: true},
-    hasTP: {type: Boolean},
+    hasTP: {type: Boolean, default: true},
     brands: {type: String},
 },
 {
