@@ -4,9 +4,9 @@ class NewForm extends React.Component {
   super(props)
   this.state = {
     store: '',
-    hasTP: Boolean,
+    hasTP: true,
     brands: '',
-    lastUpdated: ''
+
   }
 this.handleChange = this.handleChange.bind(this)
 this.handleSubmit = this.handleSubmit.bind(this)
@@ -32,9 +32,8 @@ async handleSubmit (event) {
           this.props.handleAddGtp(data)
           this.setState({
               store: '',
-              hasTP: Boolean,
+              hasTP: true,
               brands: '',
-              lastUpdated: ''
           })
         }catch(e){
           console.error({'Error': e})

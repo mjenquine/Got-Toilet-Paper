@@ -96,15 +96,16 @@ class App extends Component {
           <h1>Hello</h1>
         </div>
         <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
+        <br />
         {this.state.gtps.map(gtp => {
           return (
-        <div class="card" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{gtp.store}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
-            <p class="card-text">{gtp.brands}</p>
-            <a href="#" class="card-link">Edit</a>
-            <a href="#" class="card-link">Delete</a>
+        <div key={gtp._id} className="card">
+          <div className="card-body">
+            <h5 className="card-title">{gtp.store}</h5>
+            <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
+            <p className="card-text">{gtp.brands}</p>
+            <a href="#" className="card-link">Edit</a>
+            <a href="#" className="card-link">Delete</a>
           </div>
         </div>
           )
