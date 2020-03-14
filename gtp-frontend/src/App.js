@@ -100,31 +100,40 @@ class App extends Component {
     return (
       <div className="container">
         <div className="jumbotron">
-          <h1>Hello</h1>
+          <h1>Got Toilet Paper?</h1>
         </div>
-        <NewForm handleAddGtp={this.handleAddGtp} baseURL={baseURL}/>
+        <NewForm
+          handleAddGtp={this.handleAddGtp} baseURL={baseURL}
+        />
         <br />
-
-        
         {this.state.gtps.map(gtp => {
           return (
-        <div key={gtp._id} className="card" >
-          <div className="card-body">
-            <h5 onMouseOver={() => this.getGtp(gtp)} onMouseOut={() => this.stopShow(gtp)} className="card-title">{gtp.store}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
-            <p className="card-text">{gtp.brands}</p>
-            <a href="#" className="card-link">Edit</a>
-            <a onClick={()=>{ this.deleteGtp(gtp._id)}} href="#" className="card-link">Delete</a>
+        <div
+          key={gtp._id}
+          onMouseOver={() => this.getGtp(gtp)} onMouseOut={() => this.stopShow(gtp)} className="column"
+        >
+          <div className="row">
+            <div className="card col" >
+              <div className="card-body">
+                <h5 className="card-title">{gtp.store}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{gtp.hasTP}</h6>
+                <p className="card-text">{gtp.brands}</p>
+                <a href="#" className="card-link">Edit</a>
+                <a onClick={()=>{ this.deleteGtp(gtp._id)}} href="#" className="card-link">Delete</a>
+              </div>
+            </div>
+
+
           </div>
         </div>
-          )
-        })}
-        { this.state.gtp
-          ? <Show gtp={this.state.gtp}/>
-          : null
-        }
-
-
+      )
+    })}
+        <div className="col">
+          { this.state.gtp
+            ? <Show gtp={this.state.gtp}/>
+            : null
+          }
+        </div>
       </div>
     )
   }
