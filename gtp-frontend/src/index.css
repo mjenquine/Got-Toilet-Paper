@@ -12,7 +12,15 @@ code {
     monospace;
 }
 
-.position-sticky {
-  right: 0;
-  top: 20%;
+.show {
+    top: 0;
+    right: 0;
+    background-color: lightgrey;
+    z-index: 1;
+    margin: 0;
+    display: block;
+    height: 20%;
+    width: 30%;
+    margin-left: 90%;
+    border-radius: 5px;
 }

@@ -99,6 +99,12 @@ class App extends Component {
   render () {
     return (
       <div className="container">
+      <div className="position-sticky show">
+        { this.state.gtp
+          ? <Show gtp={this.state.gtp}/>
+          : null
+        }
+      </div>
         <div className="jumbotron">
           <h1>Got Toilet Paper?</h1>
         </div>
@@ -106,12 +112,6 @@ class App extends Component {
           handleAddGtp={this.handleAddGtp} baseURL={baseURL}
         />
         <br />
-        <div className="col position-sticky">
-          { this.state.gtp
-            ? <Show gtp={this.state.gtp}/>
-            : null
-          }
-        </div>
         {this.state.gtps.map(gtp => {
           return (
         <div
